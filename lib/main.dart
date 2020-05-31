@@ -43,11 +43,12 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            RaisedButton(
+            /*RaisedButton(
               onPressed: _launchURL,
               color: Colors.blueGrey[300],
               child: Text("Click Here")
-            )
+            )*/
+            _launchURL()
           ],
         ),
       ),
@@ -55,7 +56,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 
   _launchURL() async {
-    const url = 'https://www.google.com';
+    const url = 'https://hellogaya.com/';
     if (await canLaunch(url)) {
       print('Url launched $url');
       await launch(url);
@@ -74,8 +75,7 @@ const String kNavigationExamplePage = '''
 The navigation delegate is set to block navigation to the youtube website.
 </p>
 <ul>
-<ul><a href="https://www.youtube.com/">https://www.youtube.com/</a></ul>
-<ul><a href="https://www.google.com/">https://www.google.com/</a></ul>
+<ul><a href="https://hellogaya.com/">https://hellogaya.com/</a></ul>
 </ul>
 </body>
 </html>
@@ -98,18 +98,18 @@ class _WebViewExampleState extends State<WebViewExample> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('WebView'),
+        title: const Text('HelloGaya'),
         // This drop down menu demonstrates that Flutter widgets can be shown over the web view.
         actions: <Widget>[
           NavigationControls(_controller.future),
-          SampleMenu(_controller.future),
+          //SampleMenu(_controller.future),
         ],
       ),
       // We're using a Builder here so we have a context that is below the Scaffold
       // to allow calling Scaffold.of(context) so we can show a snackbar.
       body: Builder(builder: (BuildContext context) {
         return WebView(
-          initialUrl: 'https://www.google.com',
+          initialUrl: 'https://hellogaya.com/',
           javascriptMode: JavascriptMode.unrestricted,
           onWebViewCreated: (WebViewController webViewController) {
             _controller.complete(webViewController);
@@ -173,12 +173,13 @@ enum MenuOptions {
   showUserAgent,
   listCookies,
   clearCookies,
-  /*addToCache,
+  addToCache,
   listCache,
-  clearCache,*/
+  clearCache,
   navigationDelegate,
 }
 
+/*
 class SampleMenu extends StatelessWidget {
   SampleMenu(this.controller);
 
@@ -194,16 +195,23 @@ class SampleMenu extends StatelessWidget {
         return PopupMenuButton<MenuOptions>(
           onSelected: (MenuOptions value) {
             switch (value) {
-              case MenuOptions.showUserAgent:
+              */
+/*case MenuOptions.showUserAgent:
                 _onShowUserAgent(controller.data, context);
-                break;
-              case MenuOptions.listCookies:
+                break;*//*
+
+              */
+/*case MenuOptions.listCookies:
                 _onListCookies(controller.data, context);
-                break;
-              case MenuOptions.clearCookies:
+                break;*//*
+
+              */
+/*case MenuOptions.clearCookies:
                 _onClearCookies(context);
-                break;
-              /*case MenuOptions.addToCache:
+                break;*//*
+
+              */
+/*case MenuOptions.addToCache:
                 _onAddToCache(controller.data, context);
                 break;
               case MenuOptions.listCache:
@@ -211,10 +219,13 @@ class SampleMenu extends StatelessWidget {
                 break;
               case MenuOptions.clearCache:
                 _onClearCache(controller.data, context);
-                break;*/
-              case MenuOptions.navigationDelegate:
+                break;*//*
+
+              */
+/*case MenuOptions.navigationDelegate:
                 _onNavigationDelegateExample(controller.data, context);
-                break;
+                break;*//*
+
             }
           },
           itemBuilder: (BuildContext context) => <PopupMenuItem<MenuOptions>>[
@@ -231,7 +242,7 @@ class SampleMenu extends StatelessWidget {
               value: MenuOptions.clearCookies,
               child: Text('Clear cookies'),
             ),
-            /*const PopupMenuItem<MenuOptions>(
+            const PopupMenuItem<MenuOptions>(
               value: MenuOptions.addToCache,
               child: Text('Add to cache'),
             ),
@@ -242,7 +253,7 @@ class SampleMenu extends StatelessWidget {
             const PopupMenuItem<MenuOptions>(
               value: MenuOptions.clearCache,
               child: Text('Clear cache'),
-            ),*/
+            ),
             const PopupMenuItem<MenuOptions>(
               value: MenuOptions.navigationDelegate,
               child: Text('Navigation Delegate example'),
@@ -252,6 +263,7 @@ class SampleMenu extends StatelessWidget {
       },
     );
   }
+*/
 
   void _onShowUserAgent(
       WebViewController controller, BuildContext context) async {
@@ -277,7 +289,7 @@ class SampleMenu extends StatelessWidget {
     ));
   }
 
-  /*void _onAddToCache(WebViewController controller, BuildContext context) async {
+  void _onAddToCache(WebViewController controller, BuildContext context) async {
     await controller.evaluateJavascript(
         'caches.open("test_caches_entry"); localStorage["test_localStorage"] = "dummy_entry";');
     Scaffold.of(context).showSnackBar(const SnackBar(
@@ -296,10 +308,10 @@ class SampleMenu extends StatelessWidget {
     Scaffold.of(context).showSnackBar(const SnackBar(
       content: Text("Cache cleared."),
     ));
-  }*/
+  }
 
-  void _onClearCookies(BuildContext context) async {
-    final bool hadCookies = await cookieManager.clearCookies();
+ /* void _onClearCookies(BuildContext context) async {
+    //final bool hadCookies = await cookieManager.clearCookies();
     String message = 'There were cookies. Now, they are gone!';
     if (!hadCookies) {
       message = 'There are no cookies.';
@@ -307,7 +319,7 @@ class SampleMenu extends StatelessWidget {
     Scaffold.of(context).showSnackBar(SnackBar(
       content: Text(message),
     ));
-  }
+  }*/
 
   void _onNavigationDelegateExample(
       WebViewController controller, BuildContext context) async {
@@ -329,7 +341,7 @@ class SampleMenu extends StatelessWidget {
       children: cookieWidgets.toList(),
     );
   }
-}
+
 
 class NavigationControls extends StatelessWidget {
   const NavigationControls(this._webViewControllerFuture)
